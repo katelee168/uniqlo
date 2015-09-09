@@ -32,15 +32,3 @@ def main():
     scrape()
     
 if __name__ == "__main__": main()
-"""categories = []
-for category in soup.find_all("div", {'class':'menusampcats'}):
-    '''Clean category text'''
-cat = category.text
-categories.append(re.sub('[^\w ]', '', cat).strip())
-
-foods = []
-for food in soup.find_all("a", {"name": "Recipe_Desc"}):
-    foods.append(food.text)
-
-    return [categories, foods]
-"""
