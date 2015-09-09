@@ -3,23 +3,35 @@ import string
 import re
 from bs4 import BeautifulSoup
 
-'''URL parameters'''
-base = "http://www.uniqlo.com/us/women/jeans/ultra-stretch.html"
+def scrape():
+    '''URL parameters'''
+    base = "http://www.uniqlo.com/us/women/jeans/ultra-stretch.html"
+    
+    '''Get menu'''
+    f = urllib.urlopen(base)
+    
+    html = f.read()
 
-'''Get menu'''
-f = urllib.urlopen(base)
+    soup = BeautifulSoup(html)
+    #print soup.prettify()
+    
+    '''Find all food in html'''
+    for price in soup.find_all("div", {'class':'price-content'}):
+        if "(BLACK)" in price.parent.find("a").text:
+            #if price.find_all("span", {'class':'price-red-flag'}).length()>1:
+            s_pricepant = float(price.find("span").text.replace('$','').strip())
+            print s_pricepant
+            if float(s_pricepant) < 50:
+                email(s_pricepant)
+                break
+        
+def email(s_price):
+    
 
-html = f.read()
-
-soup = BeautifulSoup(html)
-#print soup.prettify()
-
-'''Find all food in html'''
-for price in soup.find_all("div", {'class':'price-content'}):
-    if "(BLACK)" in price.parent.find("a").text:
-        if price.find_all("span", {'class':'price-red-flag'}).length()>1:
-            print float(price.find("span").text.replace('$','').strip())
-
+def main():
+    scrape()
+    
+if __name__ == "__main__": main()
 """categories = []
 for category in soup.find_all("div", {'class':'menusampcats'}):
     '''Clean category text'''
