@@ -21,7 +21,7 @@ def scrape():
             #if price.find_all("span", {'class':'price-red-flag'}).length()>1:
             s_pricepant = float(price.find("span").text.replace('$','').strip())
             print s_pricepant
-            if float(s_pricepant) < 50:
+            if float(s_pricepant) < 49.9:
                 email(s_pricepant)
                 break
         
@@ -32,24 +32,13 @@ def email(s_price):
     recipient = ["cloudsrpretty168@gmail.com"]
 
     # Create the body of the message (a plain-text and an HTML version).
-    text = 'there\'s a sale!!'
+    text = 'there\'s a sale!! for ' + str(s_price)
     html = """\
 <html>
   <body style="font-family: &quot;HelveticaNeue-Light&quot;, &quot;Helvetica Neue&quot;;">
-    <div class="outside">
-      <div id="greeting" style="color: white;font-size: 24px;font-family: &quot;HelveticaNeue-Light&quot;, &quot;Helvetica Neue&quot;;background-color: #F76609;padding: 50px 15px 20px 15px;">
-        Good morning!
+      <div style="padding: 20px 15px;margin-bottom: 15px;margin-left: 10%;width: -webkit-calc(80% - 30px);font-family: &quot;HelveticaNeue-Light&quot;, &quot;Helvetica Neue&quot;;font-size: 14px;">
+        Congrats! Your pants are on sale for """ + str(s_price) + """ 
       </div>
-      </div>
-      <div class="container dhall" style="padding: 20px 15px;margin-bottom: 15px;margin-left: 10%;width: -webkit-calc(80% - 30px);font-family: &quot;HelveticaNeue-Light&quot;, &quot;Helvetica Neue&quot;;font-size: 14px;">
-        <p class="dhall-header" style="-webkit-margin-before: 0em;-webkit-margin-after: 0em;color: #4AA176;font-size: 24px;">Frist</p>
-        Ants on a log</br>
-        Yule Log
-      </div>
-
-    <div id="footer" style="background-color: #34425C;color: white;padding: 15px;font-size: 13px;">
-      Learn more or unsubscribe: dining.princeton@gmail.com
-    </div>
   </body>
 </html>
 """

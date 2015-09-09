@@ -11,7 +11,7 @@ def send_email(recipient, text, html):
 
     # Create message container - the correct MIME type is multipart/alternative.
     msg = MIMEMultipart('alternative')
-    msg['Subject'] = "This is a subject"
+    msg['Subject'] = "Uniqlo Pants!!"
     msg['From'] = me
     msg['To'] = me
     msg['BCC'] = ", ".join(recipient)
@@ -33,9 +33,7 @@ def send_email(recipient, text, html):
         server = smtplib.SMTP('smtp.gmail.com:587')
         server.starttls()
         server.login(account.login, account.password)
-        print "loggedin"
         problems = server.sendmail(me, recipient, msg.as_string())
-        print problems
         server.close()
         print 'sucessfuly sent mail'
     except:
