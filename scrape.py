@@ -16,16 +16,20 @@ def scrape():
     #print soup.prettify()
     
     '''Find all food in html'''
+    success = False
     for price in soup.find_all("div", {'class':'price-content'}):
         if "(BLACK)" in price.parent.find("a").text:
             #if price.find_all("span", {'class':'price-red-flag'}).length()>1:
             s_pricepant = float(price.find("span").text.replace('$','').strip())
             print s_pricepant
             if float(s_pricepant) < 49.9:
-                email(s_pricepant)
+                success = True
+                email_success(s_pricepant)
                 break
+    if not success:
+        email_fail()
         
-def email(s_price):
+def email_success(s_price):
     import sendemail
 
     # name of recipient
@@ -42,6 +46,13 @@ def email(s_price):
   </body>
 </html>
 """
+    sendemail.send_email(recipient, text, html)
+
+def email_fail():
+    import sendemail
+    recipient = ["cloudsrpretty168@gmail.com"]
+    text = 'not today'
+    html = "not today, price is still over 49.9"
     sendemail.send_email(recipient, text, html)
 def main():
     scrape()
